@@ -26,6 +26,7 @@ module.exports = function(grunt) {
     jshint: {
       files: [
         // Add filespec list here
+        'app/**/*.js'
       ],
       options: {
         force: 'true',
@@ -37,9 +38,16 @@ module.exports = function(grunt) {
       }
     },
 
-    cssmin: {
-        // Add filespec list here
-    },
+    cssmin: {  
+      target: {
+      files: [{
+        expand: true,
+        cwd: 'release/css',
+        src: ['public/style.css'],
+        dest: 'release/css',
+        ext: '.min.css'
+      }]
+  }},
 
     watch: {
       scripts: {
@@ -100,6 +108,7 @@ module.exports = function(grunt) {
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
       // add your production server task here
+      grunt.task.run([ 'shell' ]);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
@@ -107,6 +116,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
       // add your production server task here
+      'shell'
   ]);
 
 
